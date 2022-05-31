@@ -14,6 +14,7 @@ class BusinessViewModel :NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title :String?
     var rating :Double
+    var image: UIImage!
     
     init(_ business: Business) {
         self.coordinate = business.location.coordinate

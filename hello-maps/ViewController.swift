@@ -90,30 +90,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             return nil
         }
         
-        var businessAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "BusinessAnnotationView") as? MKMarkerAnnotationView
+        var businessAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "BusinessAnnotationView")
         
         if businessAnnotationView == nil {
+            let businessVM = annotation as! BusinessViewModel
             
-            businessAnnotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "BusinessAnnotationView")
+            businessAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "BusinessAnnotationView")
             businessAnnotationView?.canShowCallout = true
-            
-            if let businessViewModel = annotation as? BusinessViewModel {
-                
-                switch businessViewModel.rating {
-                    case 4...5:
-                        businessAnnotationView?.markerTintColor = UIColor.green
-                    default:
-                        businessAnnotationView?.markerTintColor = UIColor.red
-                }
-                
-            }
-            
+            businessAnnotationView?.image = businessVM.image
         } else {
             businessAnnotationView?.annotation = annotation
         }
         
         return businessAnnotationView
-        
     }
     
     private func getRandomRating() -> Double {
